@@ -1,0 +1,21 @@
+Neighborhood,PropertyType,Price,Bedrooms,Bathrooms,SquareFeet,YearBuilt,Condition,Latitude,Longitude
+Back Bay,Condo,850000,2,2,1200,2010,Excellent,42.3503,-71.0809
+Beacon Hill,Single Family,1200000,3,3,1800,1920,Good,42.3584,-71.0708
+South End,Condo,650000,1,1,900,2005,Excellent,42.3398,-71.0729
+North End,Condo,750000,2,2,1100,2015,Excellent,42.3647,-71.0542
+Charlestown,Single Family,950000,4,3,2000,1985,Good,42.3765,-71.0610
+East Boston,Condo,500000,2,1,1000,2012,Good,42.3751,-71.0397
+Dorchester,Single Family,450000,3,2,1500,1970,Fair,42.2974,-71.0614
+Roxbury,Single Family,380000,3,2,1400,1965,Fair,42.3289,-71.0836
+Jamaica Plain,Single Family,600000,3,2,1600,1990,Good,42.3099,-71.1156
+West Roxbury,Single Family,700000,4,3,2200,1980,Good,42.2792,-71.1589
+Hyde Park,Single Family,420000,3,2,1500,1975,Fair,42.2568,-71.1244
+Mattapan,Single Family,350000,3,2,1300,1960,Fair,42.2715,-71.0952
+Roslindale,Single Family,550000,3,2,1700,1985,Good,42.2847,-71.1256
+Brighton,Condo,580000,2,2,1100,2008,Good,42.3503,-71.1528
+Allston,Condo,520000,1,1,800,2010,Good,42.3534,-71.1312
+Somerville,Condo,480000,2,1,950,2005,Good,42.3876,-71.0995
+Cambridge,Condo,680000,2,2,1200,2015,Excellent,42.3736,-71.1097
+Medford,Single Family,520000,3,2,1600,1990,Good,42.4184,-71.1062
+Arlington,Single Family,750000,4,3,2000,1985,Good,42.4154,-71.1569
+Watertown,Single Family,650000,3,2,1800,1995,Good,42.3706,-71.1828
