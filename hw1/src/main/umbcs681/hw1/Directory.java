@@ -2,6 +2,8 @@ package umbcs681.hw1;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Directory implements FSElement {
     private String name;
@@ -30,6 +32,38 @@ public class Directory implements FSElement {
         children.add(child);
     }
     
+    public LinkedList<Directory> getSubDirectories() {
+        return children.stream()
+            .filter(element -> element instanceof Directory)
+            .map(element -> (Directory) element)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    public LinkedList<File> getFiles() {
+        return children.stream()
+            .filter(element -> element instanceof File)
+            .map(element -> (File) element)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    public LinkedList<Link> getLinks() {
+        return children.stream()
+            .filter(element -> element instanceof Link)
+            .map(element -> (Link) element)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    public Stream<FSElement> iterateChildren() {
+        return Stream.iterate(0, i -> i < children.size(), i -> i + 1)
+            .map(children::get);
+    }
+
+    public Stream<File> iterateFiles() {
+        return iterateChildren()
+            .filter(element -> element instanceof File)
+            .map(element -> (File) element);
+    }
+
     @Override
     public void accept(FSVisitor v) {
         v.visit(this);

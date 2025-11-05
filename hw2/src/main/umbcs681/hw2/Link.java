@@ -2,31 +2,31 @@ package umbcs681.hw2;
 
 import java.time.LocalDateTime;
 
-public class File implements FSElement {
+public class Link implements FSElement {
     private String name;
-    private int size;
     private LocalDateTime creationTime;
+    private FSElement target;
     
-    public File(String name, int size, LocalDateTime creationTime) {
+    public Link(String name, LocalDateTime creationTime, FSElement target) {
         this.name = name;
-        this.size = size;
         this.creationTime = creationTime;
+        this.target = target;
     }
     
     public String getName() {
         return name;
     }
     
-    public int getSize() {
-        return size;
-    }
-    
     public LocalDateTime getCreationTime() {
         return creationTime;
+    }
+    
+    public FSElement getTarget() {
+        return target;
     }
     
     @Override
     public void accept(FSVisitor v) {
         v.visit(this);
     }
-} 
+}

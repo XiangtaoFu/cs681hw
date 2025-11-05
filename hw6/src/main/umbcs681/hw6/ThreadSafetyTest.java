@@ -3,10 +3,10 @@ package umbcs681.hw6;
 public class ThreadSafetyTest {
     
     public static void main(String[] args) {
-        System.out.println("=== HW6-1: RunnableCancellablePrimeGenerator Test ===");
+        System.out.println("RunnableCancellablePrimeGenerator Test");
         testCancellablePrimeGenerator();
         
-        System.out.println("\n=== HW6-2: RunnableCancellablePrimeFactorizer Test ===");
+        System.out.println("\nRunnableCancellablePrimeFactorizer Test");
         testCancellablePrimeFactorizer();
     }
     
@@ -14,14 +14,12 @@ public class ThreadSafetyTest {
         RunnableCancellablePrimeGenerator generator = new RunnableCancellablePrimeGenerator();
         Thread thread = new Thread(generator);
         
-        // Start the thread
         thread.start();
         
-        // Let it run for a short time, then cancel
         try {
-            Thread.sleep(100); // Let it run for 100ms
-            generator.setDone(); // Cancel the operation
-            thread.join(); // Wait for thread to finish
+            Thread.sleep(100);
+            generator.setDone();
+            thread.join();
             
             System.out.println("Prime generation cancelled. Found " + generator.getPrimes().size() + " primes:");
             System.out.println("Primes: " + generator.getPrimes());
@@ -33,18 +31,16 @@ public class ThreadSafetyTest {
     }
     
     private static void testCancellablePrimeFactorizer() {
-        long testNumber = 1234567890L; // A large number for factorization
+        long testNumber = 1234567890L;
         RunnableCancellablePrimeFactorizer factorizer = new RunnableCancellablePrimeFactorizer(testNumber);
         Thread thread = new Thread(factorizer);
         
-        // Start the thread
         thread.start();
         
-        // Let it run for a short time, then cancel
         try {
-            Thread.sleep(50); // Let it run for 50ms
-            factorizer.setDone(); // Cancel the operation
-            thread.join(); // Wait for thread to finish
+            Thread.sleep(50);
+            factorizer.setDone();
+            thread.join();
             
             System.out.println("Prime factorization of " + testNumber + " cancelled.");
             System.out.println("Found " + factorizer.getPrimeFactors().size() + " prime factors:");

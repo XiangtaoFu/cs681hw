@@ -1,6 +1,8 @@
 package umbcs681.hw6;
 
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.List;
+import java.util.ArrayList;
 
 public class RunnableCancellablePrimeFactorizer extends RunnablePrimeFactorizer {
     private boolean done = false;
@@ -28,6 +30,8 @@ public class RunnableCancellablePrimeFactorizer extends RunnablePrimeFactorizer 
             lock.lock();
             try {
                 if (done) {
+                    System.out.println("Stopped generating prime factors.");
+                    primeFactors.clear();
                     break;
                 }
             } finally {
@@ -35,7 +39,14 @@ public class RunnableCancellablePrimeFactorizer extends RunnablePrimeFactorizer 
             }
             
             if (n % factor == 0) {
-                primeFactors.add(factor);
+                lock.lock();
+                try {
+                    if (!done) {
+                        primeFactors.add(factor);
+                    }
+                } finally {
+                    lock.unlock();
+                }
                 n /= factor;
             } else {
                 factor++;
@@ -56,6 +67,16 @@ public class RunnableCancellablePrimeFactorizer extends RunnablePrimeFactorizer 
         lock.lock();
         try {
             return done;
+        } finally {
+            lock.unlock();
+        }
+    }
+    
+    @Override
+    public List<Long> getPrimeFactors() {
+        lock.lock();
+        try {
+            return new ArrayList<>(primeFactors);
         } finally {
             lock.unlock();
         }

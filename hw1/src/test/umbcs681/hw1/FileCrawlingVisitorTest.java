@@ -33,14 +33,16 @@ public class FileCrawlingVisitorTest {
 
     @Test
     public void testFilesMethodReturnsStream() {
+        // Test that the files() method returns a Stream<File>
         Stream<File> fileStream = visitor.files();
-        assertNotNull(fileStream);
+        assertNotNull(fileStream, "The files() method should return non-null");
     }
     
     @Test
     public void testFilesMethodContainsAllFiles() {
+        // Test that the stream contains all the files we added
         long count = visitor.files().count();
-        assertEquals(3, count);
+        assertEquals(3, count, "The stream should contain all 3 files");
     }
     
     @Test

@@ -10,7 +10,7 @@ public class RunnablePrimeGenerator extends PrimeGenerator implements Runnable {
     @Override
     public void generatePrimes() {
         long candidate = 2;
-        while (candidate <= 1000) { // Generate primes up to 1000
+        while (candidate <= 1000) {
             if (isPrime(candidate)) {
                 primes.add(candidate);
             }

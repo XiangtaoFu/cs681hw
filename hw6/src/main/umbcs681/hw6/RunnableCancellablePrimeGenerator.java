@@ -1,6 +1,8 @@
 package umbcs681.hw6;
 
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.List;
+import java.util.ArrayList;
 
 public class RunnableCancellablePrimeGenerator extends RunnablePrimeGenerator {
     private boolean done = false;
@@ -22,6 +24,8 @@ public class RunnableCancellablePrimeGenerator extends RunnablePrimeGenerator {
             lock.lock();
             try {
                 if (done) {
+                    System.out.println("Stopped generating prime numbers.");
+                    primes.clear();
                     break;
                 }
             } finally {
@@ -29,7 +33,14 @@ public class RunnableCancellablePrimeGenerator extends RunnablePrimeGenerator {
             }
             
             if (isPrime(candidate)) {
-                primes.add(candidate);
+                lock.lock();
+                try {
+                    if (!done) {
+                        primes.add(candidate);
+                    }
+                } finally {
+                    lock.unlock();
+                }
             }
             candidate++;
         }
@@ -39,6 +50,16 @@ public class RunnableCancellablePrimeGenerator extends RunnablePrimeGenerator {
         lock.lock();
         try {
             return done;
+        } finally {
+            lock.unlock();
+        }
+    }
+    
+    @Override
+    public List<Long> getPrimes() {
+        lock.lock();
+        try {
+            return new ArrayList<>(primes);
         } finally {
             lock.unlock();
         }
