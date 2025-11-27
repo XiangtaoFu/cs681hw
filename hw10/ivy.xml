@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0">
+    <info organisation="org.umbcs681" module="hw10"/>
+    <dependencies>
+        <dependency org="org.junit.jupiter" name="junit-jupiter-engine" rev="5.10.0"/>
+        <dependency org="org.junit.jupiter" name="junit-jupiter-api" rev="5.10.0"/>
+        <dependency org="org.junit.platform" name="junit-platform-launcher" rev="1.10.0"/>
+    </dependencies>
+</ivy-module>

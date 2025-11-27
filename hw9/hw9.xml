@@ -1,0 +1,58 @@
+<project name="hw9-junit" basedir="."  default="clean" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property name="src" location="src/main" />
+	<property name="src.test" location="src/test" />
+	<property name="bin" location="build/main" />
+	<property name="bin.test" location="build/test" />
+	<property name="ivy.lib" location="lib"/>
+
+	<target name="download">
+		<mkdir dir="${ivy.lib}"/>
+		<ivy:retrieve/>
+	</target>
+
+	<target name="init" depends="download">
+		<mkdir dir="${bin}"/>
+		<mkdir dir="${bin.test}"/>
+		<path id="classpath">
+			<pathelement location="${bin}" />
+			<pathelement location="${bin.test}" />
+			<fileset dir="${ivy.lib}"/>
+		</path>
+	</target>
+	
+	<target name="compile" depends="init">
+		<javac srcdir="${src}" destdir="${bin}" includeAntRuntime="no">
+			<classpath refid="classpath"/>
+			<include name="umbcs681/hw9/*.java"/>
+		</javac>
+		<javac srcdir="${src.test}" destdir="${bin.test}" includeAntRuntime="no">
+			<classpath refid="classpath"/>
+			<include name="umbcs681/hw9/*.java"/>
+		</javac>
+	</target>
+
+	<target name="run" depends="compile">
+		<java classname="umbcs681.hw9.ThreadTerminationTest"
+				classpathref="classpath"
+				fork="true"/>
+	</target>
+
+	<target name="test" depends="compile">
+		<junitlauncher haltOnFailure="false" printSummary="true">
+			<classpath refid="classpath" />
+			<testclasses outputdir=".">
+				<fileset dir="${bin.test}">
+					<include name="umbcs681/hw9/*Test.class"/>
+				</fileset>
+				<listener type="legacy-plain" sendSysOut="true"/>
+			</testclasses>
+		</junitlauncher>
+	</target>
+
+	<target name="clean" depends="test">
+		<delete includeemptydirs="true">
+			<fileset dir="${bin}" includes="**/*"/>
+			<fileset dir="${bin.test}" includes="**/*"/>
+		</delete>
+	</target>
+</project>

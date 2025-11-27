@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="hw11" default="run" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <property name="src.main" location="src/main"/>
+    <property name="src.test" location="src/test"/>
+    <property name="build.main" location="build/main"/>
+    <property name="build.test" location="build/test"/>
+    <property name="lib" location="lib"/>
+
+    <path id="classpath.main">
+        <pathelement location="${build.main}"/>
+    </path>
+
+    <path id="classpath.test">
+        <pathelement location="${build.main}"/>
+        <pathelement location="${build.test}"/>
+        <fileset dir="${lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="download">
+        <mkdir dir="${lib}"/>
+        <ivy:retrieve pattern="${lib}/[artifact]-[revision](-[classifier]).[ext]"/>
+    </target>
+
+    <target name="init" depends="download">
+        <mkdir dir="${build.main}"/>
+        <mkdir dir="${build.test}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src.main}" destdir="${build.main}" includeantruntime="false">
+            <classpath refid="classpath.main"/>
+        </javac>
+        <javac srcdir="${src.test}" destdir="${build.test}" includeantruntime="false">
+            <classpath refid="classpath.test"/>
+        </javac>
+    </target>
+
+    <target name="test" depends="compile">
+        <junitlauncher printsummary="true" haltonfailure="false">
+            <classpath refid="classpath.test"/>
+            <testclasses outputdir=".">
+                <fileset dir="${build.test}">
+                    <include name="**/*Test.class"/>
+                </fileset>
+                <listener type="legacy-plain" sendSysOut="true"/>
+            </testclasses>
+        </junitlauncher>
+    </target>
+
+    <target name="run" depends="compile">
+        <java classname="umbcs681.hw11.BankAccountTest" fork="true">
+            <classpath refid="classpath.test"/>
+        </java>
+    </target>
+
+    <target name="clean">
+        <delete dir="build"/>
+        <delete dir="${lib}"/>
+    </target>
+
+</project>
